@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple File Upload & Preview</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>File Upload & Preview</h2>
+        <p>Select up to 10 files (Max 10MB each).</p>
+        <input type="file" id="file-input" multiple>
+        <input type="file" id="replace-input" style="display: none;">
+        <div id="error-msg"></div>
+        <div id="file-list"></div>
+        <div id="submit-section" style="display: none;">
+            <p id="submit-summary"></p>
+            <button id="submit-btn">Submit Files</button>
+            <p id="success-msg"></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

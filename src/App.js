@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 
-const MAX_SIZE = 10 * 1024 * 1024; 
+const MAX_SIZE = 10 * 1024 * 1024;
 const MAX_FILES = 10;
 const ALLOWED_TYPES = [
   'image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml',
@@ -36,9 +36,16 @@ function App() {
   const fileInputRef = useRef(null);
   const replaceInputRef = useRef(null);
 
+  // Keep a ref to the latest files to use in cleanup without re-running the effect
+  const filesRef = useRef(files);
+  useEffect(() => {
+    filesRef.current = files;
+  }, [files]);
+
   useEffect(() => {
     return () => {
-      files.forEach(item => {
+      // Cleanup all object URLs when the component unmounts
+      filesRef.current.forEach(item => {
         if (item.url) URL.revokeObjectURL(item.url);
       });
     };
@@ -63,7 +70,7 @@ function App() {
     setFiles(prev => [...prev, ...processedFiles]);
 
     if (fileInputRef.current) {
-      fileInputRef.current.value = ''; 
+      fileInputRef.current.value = '';
     }
   };
 
